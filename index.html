@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--
+Name: Greg Lawrence
+Email: gregory_lawrence@student.uml.edu
+Umass Lowell Computer Science
+Copyright(c) December 9, 2019. May be freely copied or excerpted for educational purposes with credit to the author.
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Greg Lawrence - GUI Student Page</title>
+        <!--Stylesheets-->
+        <link rel="stylesheet" type="text/css" href="jquery-ui.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+
+        <!--JQuery Plugins and Scripts-->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="jquery.validate.min.js"></script>
+        <script type = "text/javascript">
+
+            // collection of functions to be used with validation
+            var validator = {
+                // Change border color of input box to indicate error
+                highlightError : function(testing){
+                    $("#" + testing).css({
+                        "border-color" : "red"
+                    });
+                    $("#" + testing).focus();
+                },
+
+                // prevent user from submitting while error persists
+                preventSubmit : function(subButton){
+                    $(subButton).prop("disabled", true);
+                    no_submit = true;
+                },
+            };
+
+            // Once page has loaded, begin validating form
+            $(document).ready(function(){
+                //$("#submitButton").prop("disabled", true);
+                $("#numInputForm").validate({
+
+                    rules : {
+                        num1 : {
+                            required: true,
+                            number: true,
+                            range: [slideMin, slideMax]
+                        },
+                        num2 : {
+                            required: true,
+                            number: true,
+                            range: [slideMin, slideMax]
+                        },
+                        num3 : {
+                            required: true,
+                            number: true,
+                            range: [slideMin, slideMax]
+                        },
+                        num4 : {
+                            required: true,
+                            number: true,
+                            range: [slideMin, slideMax]
+                        }
+                    },
+                    messages : {
+                        num1 : {
+                            required : function(){
+                                validator.highlightError("num1");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>This field is<br> &nbsp; required<br>";
+                            },
+                            number : function(){
+                                validator.highlightError("num1");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please enter only numbers<br>"
+                            },
+                            range : function(){
+                                validator.highlightError("num1");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please only enter values between " + slideMin + " and " + slideMax + "<br>";
+                            }
+                        },
+                        num2 : {
+                            required : function(){
+                                validator.highlightError("num2");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>This field is<br> &nbsp; required<br>";
+                            },
+                            number : function(){
+                                validator.highlightError("num2");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please enter only numbers<br>"
+                            },
+                            range : function(){
+                                validator.highlightError("num2");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please only enter values between " + slideMin + " and " + slideMax + "<br>";
+                            }
+                        },
+                        num3 : {
+                            required : function(){
+                                validator.highlightError("num3");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>This field is<br> &nbsp; required<br>";
+                            },
+                            number : function(){
+                                validator.highlightError("num3");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please enter only numbers<br>"
+                            },
+                            range : function(){
+                                validator.highlightError("num3");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please only enter values between " + slideMin + " and " + slideMax + "<br>";
+                            }
+                        },
+                        num4 : {
+                            required : function(){
+                                validator.highlightError("num4");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>This field is<br> &nbsp; required<br>";
+                            },
+                            number : function(){
+                                validator.highlightError("num4");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please enter only numbers<br>"
+                            },
+                            range : function(){
+                                validator.highlightError("num4");
+                                validator.preventSubmit("#submitButton");
+                                return "<br>Please only enter values between " + slideMin + " and " + slideMax + "<br>";
+                            }
+                        }
+                    },
+                    placeError : function(error, element){
+                        $(error).appendTo($("#numInputForm"));
+                    },
+                    // Once error has been fixed, change border back and allow submission
+                    // However if multiple validation errors remain user will be unable to submit until they have all been resolved
+                    success : function(error, element){
+                        $(element).css({"border" : ""});
+                        $("#submitButton").prop("disabled", false);
+                        no_submit = false;
+                    }
+                });
+            });
+        </script>
+
+    </head>
+
+    <body>
+        <h1 id="multHeader">Greg's Multiplication Table</h1>
+
+        <!--This container will hold all the parts of the multiplication table and input boxes etc-->
+        <div id="container">
+
+            <!--Form for user number input-->
+            <form id="numInputForm" action="" onsubmit = "return false">
+                Enter The Multiplier Range Starting Number:
+                <br>
+                <div id="slider1"></div>
+                <input class="inputNum" value=0 type="text" id="num1" name="num1" autocomplete = "off">
+                <br>
+
+                Enter The Multiplier Range Ending Number:
+                <br>
+                <div id="slider2"></div>
+                <input class="inputNum" value=0 type="text" id="num2" name="num2" autocomplete = "off">
+                <br>
+
+                Enter The Multiplicand Range Starting Number:
+                <br>
+                <div id="slider3"></div>
+                <input class="inputNum" value=0 type="text" id="num3" name="num3" autocomplete = "off">
+                <br>
+
+                Enter The Multiplicand Range Ending Number:
+                <br>
+                <div id="slider4"></div>
+                <input class="inputNum" value=0 type="text" id="num4" name="num4" autocomplete = "off">
+                <br>
+
+                <!--Button calls the function sub() on click, which runs all the code to create the multiplication table-->
+                <input id="submitButton" type="submit" value="Generate" onclick="generateTabs()"></input>
+            </form>
+
+            <div id="mTContainer">
+            </div>
+        </div>
+
+        <div id="tableTabs">
+            <ul class=""></ul>
+        </div>
+
+        <!--Script for mul table-->
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+        <script src="scriptJQuery.js" charset="utf-8"></script>
+        <script src="jquery-ui.min.js"></script>
+    </body>
+</html>
